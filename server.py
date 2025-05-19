@@ -3,13 +3,16 @@
 from flask import Flask
 from flask_cors import CORS
 
+# Imports to code that I write
+import scraper as sc
+
 app = Flask(__name__)
 CORS(app)
 
 
 @app.route("/activities")
 def activities():
-    return  ["ONE", "TWO", "THREE"]
+    return  sc.dum_scrape()
 
 
 if __name__ == "__main__":
