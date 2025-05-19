@@ -8,8 +8,8 @@ CORS(app)
 
 
 @app.route("/activities")
-def members():
-    return {"members": ["ONE", "TWO", "THREE"]}
+def activities():
+    return  ["ONE", "TWO", "THREE"]
 
 
 if __name__ == "__main__":
