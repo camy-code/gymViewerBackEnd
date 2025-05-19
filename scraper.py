@@ -13,4 +13,5 @@
 # end goal where we can have more jsons in here!
 
 def dum_scrape():
+    # Time to organzie
     return ["one", "two", "three"]
