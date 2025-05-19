@@ -4,7 +4,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/members")
+@app.route("/activities")
 def members():
     return {"members":["ONE","TWO","THREE"]}
 
