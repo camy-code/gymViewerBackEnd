@@ -1,4 +1,5 @@
 import requests as rq
+from bs4 import BeautifulSoup
 
 def dum_scrape():
     # Time to organzie
@@ -6,7 +7,7 @@ def dum_scrape():
 
     days = ["Wednesday, April 30", "Thursday, May 1"] # This is just a loop for all days
     for day in days:
-        pass
+
         temp_dict = dict()
         # 1. Do the name
         temp_dict["name"] = day
@@ -27,10 +28,38 @@ def dum_scrape():
     # return ["one", "two", "three"]
     return myLs
 
+# Following this tutorial
+    # https://realpython.com/beautiful-soup-web-scraper-python/
 def realScrape():
+
+    # Calling the scraper
     URL = "https://schedules.oval.ucalgary.ca/MobileOpenGymTimes.aspx"
     page = rq.get(URL)
-    print(page.text)
+
+    # This is setting up our parser
+    soup = BeautifulSoup(page.content, "html.parser")
+
+    # This grabs the table that we are looking for
+    results = soup.find(id=("ctl00_MainContent_ASPxGridViewDetails_DXMainTable"))
+
+    # Grab all the needed rows (this is raw html still put still gather
+    table_rows = results.find_all("tr",  class_="dxgvDataRow_PlasticRed")
+    t_size = (len(table_rows))
+    data_ls = []
+
+    t_size = 1 # Do this so it is easy to print things
+    for i in range(t_size):
+        htmlROW = table_rows[i]
+        mTempHTML = htmlROW.find_all("td", class_="dxgv") # Grab all table entries
+        mTempText = list(map( lambda a : a.text,mTempHTML)) # convert to string
+        print(mTempText)
+        # mDate = htmlROW.find().text
+        # mStart =
+        # mEnd =
+        # mLocation =
+        # mActivity =
+
+
 
 # Remove the below later
 print("-----")
