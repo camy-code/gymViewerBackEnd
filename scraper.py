@@ -1,16 +1,4 @@
-# const tempArr = [
-#         {name:"Wednesday, April 30",
-#             expand:false,
-#             activities:[
-#             {color:"#E0E0E0", gym:"red gym", sport:"hockey", time:"12-1pm"},
-#             {color:"#E0E0E0", gym:"red gym", sport:"hockey", time:"12-1pm"},
-#             {color:"#E0E0E0", gym:"red gym", sport:"hockey", time:"12-1pm"},
-#         ]
-#     },
-#
-#     ]
-#
-# end goal where we can have more jsons in here!
+import requests as rq
 
 def dum_scrape():
     # Time to organzie
@@ -38,3 +26,13 @@ def dum_scrape():
 
     # return ["one", "two", "three"]
     return myLs
+
+def realScrape():
+    URL = "https://schedules.oval.ucalgary.ca/MobileOpenGymTimes.aspx"
+    page = rq.get(URL)
+    print(page.text)
+
+# Remove the below later
+print("-----")
+realScrape()
+print("-----")
