@@ -47,19 +47,24 @@ def realScrape():
     t_size = (len(table_rows))
     data_ls = []
 
-    t_size = 1 # Do this so it is easy to print things
+    # t_size = 1 # Do this so it is easy to print things
     for i in range(t_size):
         htmlROW = table_rows[i]
         mTempHTML = htmlROW.find_all("td", class_="dxgv") # Grab all table entries
         mTempText = list(map( lambda a : a.text,mTempHTML)) # convert to string
-        print(mTempText)
-        # mDate = htmlROW.find().text
-        # mStart =
-        # mEnd =
-        # mLocation =
-        # mActivity =
 
+        # Bring the data in variables
+        mDate = mTempText[0]
+        mStart =mTempText[1]
+        mEnd =mTempText[2]
+        mLocation =mTempText[3]
+        mActivity =mTempText[4]
 
+        data_ls.append([mDate,mStart,mEnd,mLocation,mActivity])
+
+    # Time to do a test print
+    for i in data_ls:
+        print(i)
 
 # Remove the below later
 print("-----")
