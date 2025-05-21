@@ -15,6 +15,10 @@ def activities():
     # return  sc.dum_scrape()
     return sc.realScrape()
 
+@app.route("/sports")
+def sports():
+    return sc.sportTime()
+
 
 if __name__ == "__main__":
     app.run(debug=True)

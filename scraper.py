@@ -137,5 +137,7 @@ x = table(URL)
 # Make some new methods later to do your grabs
 def realScrape():
     return x.getBigJSONformat()
-    pass
+
+def sportTime():
+    return ["Any"]+ list(x.getActivities())
 
