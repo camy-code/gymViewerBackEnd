@@ -12,7 +12,8 @@ CORS(app)
 
 @app.route("/activities")
 def activities():
-    return  sc.dum_scrape()
+    # return  sc.dum_scrape()
+    return sc.realScrape()
 
 
 if __name__ == "__main__":

@@ -85,19 +85,48 @@ class table:
     def getLocations(self):
         return self.locationLs
 
+    # This function returns the JSON for all the gym days
     def getBigJSONformat(self):
-        pass
-        # This funciton will return the JSON how we want it by formatting data how we want it
+        myLs = []
+
+        days = self.getDays()
+
+        for day in days:
+
+            temp_dict = dict()
+            # 1. Do the name
+            temp_dict["name"] = day
+
+            # 2. Do expand
+            temp_dict["expand"] = False
+
+            # 3. Do activities
+            temp_act = []
+                # Do some work here later
+            actLS = filter((lambda x: day == x[0]),self.getTable())
+            for a in actLS: # find all activities and append them
+                temp_act.append({"color":"red", "gym":a[3], "sport":a[4], "time":str(f"{a[1]} - {a[2]}")})
+
+            temp_act.append( {"color":"#E0E0E0", "gym":"red gym", "sport":"hockey", "time":"12-1pm"})
+
+            temp_dict["activities"] = temp_act
+            myLs.append(temp_dict)
+
+        return myLs
+
 
 URL = "https://schedules.oval.ucalgary.ca/MobileOpenGymTimes.aspx"
 x = table(URL)
 
-print(x.getDays())
-print(x.getTable())
+# print(x.getDays())
+# print(x.getTable())
 print(x.getLocations())
-print(x.getActivities())
+# print(x.getActivities())
+# for i in (x.getBigJSONformat()[0]["activities"]):
+#     print(i)
 
 # Make some new methods later to do your grabs
 def realScrape():
+    return x.getBigJSONformat()
     pass
 
