@@ -32,54 +32,72 @@ def dum_scrape():
     # https://realpython.com/beautiful-soup-web-scraper-python/
 class table:
     def __init__(self, URL):
+        page = rq.get(URL)
+
+        # This is setting up our parser
+        soup = BeautifulSoup(page.content, "html.parser")
+
+        # This grabs the table that we are looking for
+        results = soup.find(id=("ctl00_MainContent_ASPxGridViewDetails_DXMainTable"))
+
+        # Grab all the needed rows (this is raw html still put still gather
+        table_rows = results.find_all("tr",  class_="dxgvDataRow_PlasticRed")
+        t_size = (len(table_rows))
+        data_ls = []
+
+        # t_size = 1 # Do this so it is easy to print things
+        for i in range(t_size):
+            htmlROW = table_rows[i]
+            mTempHTML = htmlROW.find_all("td", class_="dxgv") # Grab all table entries
+            mTempText = list(map( lambda a : a.text,mTempHTML)) # convert to string
+
+            # Bring the data in variables
+            mDate = mTempText[0]
+            mStart =mTempText[1]
+            mEnd =mTempText[2]
+            mLocation =mTempText[3]
+            mActivity =mTempText[4]
+
+            data_ls.append([mDate,mStart,mEnd,mLocation,mActivity])
+
+        # Time to get all days
+        self.timeLs = list(dict.fromkeys(list(map(lambda x: x[0],data_ls))))
+
+        # Time to get location
+        self.locationLs = set(list(map(lambda x: x[3],data_ls)))
+
+        # Time to get activity
+        self.activityLs =  set(list(map(lambda x: x[4],data_ls)))
+
+        # Time to get the 2D table
+        self.table = data_ls
+
+
+    def getTable(self):
+        return self.table
+
+    def getDays(self):
+        return self.timeLs
+
+    def getActivities(self):
+        return self.activityLs
+
+    def getLocations(self):
+        return self.locationLs
+
+    def getBigJSONformat(self):
         pass
+        # This funciton will return the JSON how we want it by formatting data how we want it
 
+URL = "https://schedules.oval.ucalgary.ca/MobileOpenGymTimes.aspx"
+x = table(URL)
 
+print(x.getDays())
+print(x.getTable())
+print(x.getLocations())
+print(x.getActivities())
+
+# Make some new methods later to do your grabs
 def realScrape():
+    pass
 
-    # Calling the scraper
-    URL = "https://schedules.oval.ucalgary.ca/MobileOpenGymTimes.aspx"
-    page = rq.get(URL)
-
-    # This is setting up our parser
-    soup = BeautifulSoup(page.content, "html.parser")
-
-    # This grabs the table that we are looking for
-    results = soup.find(id=("ctl00_MainContent_ASPxGridViewDetails_DXMainTable"))
-
-    # Grab all the needed rows (this is raw html still put still gather
-    table_rows = results.find_all("tr",  class_="dxgvDataRow_PlasticRed")
-    t_size = (len(table_rows))
-    data_ls = []
-
-    # t_size = 1 # Do this so it is easy to print things
-    for i in range(t_size):
-        htmlROW = table_rows[i]
-        mTempHTML = htmlROW.find_all("td", class_="dxgv") # Grab all table entries
-        mTempText = list(map( lambda a : a.text,mTempHTML)) # convert to string
-
-        # Bring the data in variables
-        mDate = mTempText[0]
-        mStart =mTempText[1]
-        mEnd =mTempText[2]
-        mLocation =mTempText[3]
-        mActivity =mTempText[4]
-
-        data_ls.append([mDate,mStart,mEnd,mLocation,mActivity])
-
-    # Time to get all days
-    timeLs = set(list(map(lambda x: x[0],data_ls)))
-
-    # Time to get location
-    locationLs = set(list(map(lambda x: x[3],data_ls)))
-
-    # Time to get activity
-    activityLs =  set(list(map(lambda x: x[4],data_ls)))
-
-    print(timeLs,"\n",locationLs,"\n",activityLs)
-
-
-# Remove the below later
-print("-----")
-realScrape()
-print("-----")
