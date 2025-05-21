@@ -85,6 +85,15 @@ class table:
     def getLocations(self):
         return self.locationLs
 
+    def getColor(self, x):
+        x = str(x).lower()
+        if "gold" in x:
+            return "yellow"
+        elif "red" in x:
+            return "red"
+        else:
+            return "pink"
+
     # This function returns the JSON for all the gym days
     def getBigJSONformat(self):
         myLs = []
@@ -105,7 +114,7 @@ class table:
                 # Do some work here later
             actLS = filter((lambda x: day == x[0]),self.getTable())
             for a in actLS: # find all activities and append them
-                temp_act.append({"color":"red", "gym":a[3], "sport":a[4], "time":str(f"{a[1]} - {a[2]}")})
+                temp_act.append({"color":self.getColor(a[3]), "gym":a[3], "sport":a[4], "time":str(f"{a[1]} - {a[2]}")})
 
             temp_act.append( {"color":"#E0E0E0", "gym":"red gym", "sport":"hockey", "time":"12-1pm"})
 
@@ -120,7 +129,7 @@ x = table(URL)
 
 # print(x.getDays())
 # print(x.getTable())
-print(x.getLocations())
+
 # print(x.getActivities())
 # for i in (x.getBigJSONformat()[0]["activities"]):
 #     print(i)
