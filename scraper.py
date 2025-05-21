@@ -116,7 +116,7 @@ class table:
             for a in actLS: # find all activities and append them
                 temp_act.append({"color":self.getColor(a[3]), "gym":a[3], "sport":a[4], "time":str(f"{a[1]} - {a[2]}")})
 
-            temp_act.append( {"color":"#E0E0E0", "gym":"red gym", "sport":"hockey", "time":"12-1pm"})
+
 
             temp_dict["activities"] = temp_act
             myLs.append(temp_dict)
