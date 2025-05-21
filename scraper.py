@@ -30,6 +30,11 @@ def dum_scrape():
 
 # Following this tutorial
     # https://realpython.com/beautiful-soup-web-scraper-python/
+class table:
+    def __init__(self, URL):
+        pass
+
+
 def realScrape():
 
     # Calling the scraper
@@ -62,9 +67,17 @@ def realScrape():
 
         data_ls.append([mDate,mStart,mEnd,mLocation,mActivity])
 
-    # Time to do a test print
-    for i in data_ls:
-        print(i)
+    # Time to get all days
+    timeLs = set(list(map(lambda x: x[0],data_ls)))
+
+    # Time to get location
+    locationLs = set(list(map(lambda x: x[3],data_ls)))
+
+    # Time to get activity
+    activityLs =  set(list(map(lambda x: x[4],data_ls)))
+
+    print(timeLs,"\n",locationLs,"\n",activityLs)
+
 
 # Remove the below later
 print("-----")
