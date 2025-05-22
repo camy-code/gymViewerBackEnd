@@ -88,11 +88,11 @@ class table:
     def getColor(self, x):
         x = str(x).lower()
         if "gold" in x:
-            return "#FFE45E"
+            return "#D97706"
         elif "red" in x:
-            return "#C42021"
+            return "#B91C1C"
         else:
-            return "#F7DAD9"
+            return "#4338CA"
 
     # This function returns the JSON for all the gym days
     def getBigJSONformat(self):
